@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="color"] {
+            width: 100px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .color-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-input-group span {
+            font-family: monospace;
+            color: #666;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .entry-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+
+        .entry-item input {
+            flex: 1;
+        }
+
+        .entry-item button {
+            flex-shrink: 0;
+        }
+
+        .add-entry {
+            margin-top: 10px;
+        }
+
+        .entries-container {
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Credits Generator</h1>
+        <p>Create beautiful scrolling credits for your productions. Perfect for OBS streaming!</p>
+
+        <h2>Production Info</h2>
+        <div class="form-group">
+            <label for="productionTitle">Production Title</label>
+            <input type="text" id="productionTitle" placeholder="e.g., Romeo and Juliet" value="Romeo and Juliet">
+        </div>
+
+        <h2>Customization</h2>
+
+        <div class="form-group">
+            <label for="creditStyle">Credits Style</label>
+            <select id="creditStyle">
+                <option value="classic">Classic Scroll (Vertical)</option>
+                <option value="starwars">Star Wars Crawl (3D Perspective)</option>
+            </select>
+            <div class="help-text">Choose between traditional scrolling or Star Wars-style perspective crawl</div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label for="bgColor">Background Color</label>
+                <div class="color-input-group">
+                    <input type="color" id="bgColor" value="#000000">
+                    <span id="bgColorText">#000000</span>
+                </div>
+                <div class="help-text">Star Wars style uses starfield background</div>
+            </div>
+
+            <div class="form-group">
+                <label for="titleColor">Title Color</label>
+                <div class="color-input-group">
+                    <input type="color" id="titleColor" value="#800000">
+                    <span id="titleColorText">#800000</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textColor">Text Color</label>
+                <div class="color-input-group">
+                    <input type="color" id="textColor" value="#ffffff">
+                    <span id="textColorText">#ffffff</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="scrollSpeed">Scroll Speed (seconds)</label>
+                <input type="number" id="scrollSpeed" value="240" min="30" max="600" step="10">
+                <div class="help-text">Higher = slower. Recommended: 240s</div>
+            </div>
+        </div>
+
+        <h2>Cast</h2>
+        <div id="castEntries" class="entries-container"></div>
+        <button onclick="addCastEntry()" class="btn-secondary add-entry">+ Add Cast Member</button>
+
+        <h2>Crew</h2>
+        <div id="crewEntries" class="entries-container"></div>
+        <button onclick="addCrewEntry()" class="btn-secondary add-entry">+ Add Crew Member</button>
+
+        <h2>Acknowledgements</h2>
+        <div class="form-group">
+            <label>Special Thanks (one per line)</label>
+            <textarea id="acknowledgements" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;">All the DP Families
+NHS Dance Department
+Performing Arts in Public Schools</textarea>
+        </div>
+
+        <div class="button-group">
+            <button onclick="generateCredits()" class="btn-success">Generate Credits</button>
+            <button onclick="saveData()" class="btn-secondary">Save Progress</button>
+            <button onclick="loadData()" class="btn-secondary">Load Saved</button>
+        </div>
+    </div>
+
+    <script>
+        let castCount = 0;
+        let crewCount = 0;
+
+        // Color picker updates
+        document.getElementById('bgColor').addEventListener('input', (e) => {
+            document.getElementById('bgColorText').textContent = e.target.value;
+        });
+        document.getElementById('titleColor').addEventListener('input', (e) => {
+            document.getElementById('titleColorText').textContent = e.target.value;
+        });
+        document.getElementById('textColor').addEventListener('input', (e) => {
+            document.getElementById('textColorText').textContent = e.target.value;
+        });
+
+        function addCastEntry(role = '', name = '') {
+            const container = document.getElementById('castEntries');
+            const id = `cast-${castCount++}`;
+            const entry = document.createElement('div');
+            entry.className = 'entry-item';
+            entry.id = id;
+            entry.innerHTML = `
+                <input type="text" placeholder="Role (e.g., Romeo)" value="${role}" data-type="role">
+                <input type="text" placeholder="Actor Name" value="${name}" data-type="name">
+                <button onclick="removeEntry('${id}')" class="btn-danger">Remove</button>
+            `;
+            container.appendChild(entry);
+        }
+
+        function addCrewEntry(role = '', name = '') {
+            const container = document.getElementById('crewEntries');
+            const id = `crew-${crewCount++}`;
+            const entry = document.createElement('div');
+            entry.className = 'entry-item';
+            entry.id = id;
+            entry.innerHTML = `
+                <input type="text" placeholder="Position (e.g., Director)" value="${role}" data-type="role">
+                <input type="text" placeholder="Name" value="${name}" data-type="name">
+                <button onclick="removeEntry('${id}')" class="btn-danger">Remove</button>
+            `;
+            container.appendChild(entry);
+        }
+
+        function removeEntry(id) {
+            document.getElementById(id).remove();
+        }
+
+        function getCastEntries() {
+            const entries = [];
+            document.querySelectorAll('#castEntries .entry-item').forEach(item => {
+                const role = item.querySelector('[data-type="role"]').value.trim();
+                const name = item.querySelector('[data-type="name"]').value.trim();
+                if (role && name) {
+                    entries.push({ role, name });
+                }
+            });
+            return entries;
+        }
+
+        function getCrewEntries() {
+            const entries = [];
+            document.querySelectorAll('#crewEntries .entry-item').forEach(item => {
+                const role = item.querySelector('[data-type="role"]').value.trim();
+                const name = item.querySelector('[data-type="name"]').value.trim();
+                if (role && name) {
+                    entries.push({ role, name });
+                }
+            });
+            return entries;
+        }
+
+        function generateCredits() {
+            const data = {
+                title: document.getElementById('productionTitle').value,
+                style: document.getElementById('creditStyle').value,
+                bgColor: document.getElementById('bgColor').value,
+                titleColor: document.getElementById('titleColor').value,
+                textColor: document.getElementById('textColor').value,
+                scrollSpeed: document.getElementById('scrollSpeed').value,
+                cast: getCastEntries(),
+                crew: getCrewEntries(),
+                acknowledgements: document.getElementById('acknowledgements').value.split('\n').filter(line => line.trim())
+            };
+
+            // Store in localStorage and open in new window
+            localStorage.setItem('creditsData', JSON.stringify(data));
+            window.open('player.html', '_blank');
+        }
+
+        function saveData() {
+            const data = {
+                title: document.getElementById('productionTitle').value,
+                style: document.getElementById('creditStyle').value,
+                bgColor: document.getElementById('bgColor').value,
+                titleColor: document.getElementById('titleColor').value,
+                textColor: document.getElementById('textColor').value,
+                scrollSpeed: document.getElementById('scrollSpeed').value,
+                cast: getCastEntries(),
+                crew: getCrewEntries(),
+                acknowledgements: document.getElementById('acknowledgements').value
+            };
+            localStorage.setItem('creditsSaved', JSON.stringify(data));
+            alert('Progress saved!');
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('creditsSaved');
+            if (!saved) {
+                alert('No saved data found.');
+                return;
+            }
+
+            const data = JSON.parse(saved);
+            document.getElementById('productionTitle').value = data.title;
+            document.getElementById('creditStyle').value = data.style || 'classic';
+            document.getElementById('bgColor').value = data.bgColor;
+            document.getElementById('titleColor').value = data.titleColor;
+            document.getElementById('textColor').value = data.textColor;
+            document.getElementById('scrollSpeed').value = data.scrollSpeed;
+            document.getElementById('acknowledgements').value = data.acknowledgements;
+
+            // Update color text displays
+            document.getElementById('bgColorText').textContent = data.bgColor;
+            document.getElementById('titleColorText').textContent = data.titleColor;
+            document.getElementById('textColorText').textContent = data.textColor;
+
+            // Clear and reload entries
+            document.getElementById('castEntries').innerHTML = '';
+            document.getElementById('crewEntries').innerHTML = '';
+            castCount = 0;
+            crewCount = 0;
+
+            data.cast.forEach(entry => addCastEntry(entry.role, entry.name));
+            data.crew.forEach(entry => addCrewEntry(entry.role, entry.name));
+
+            alert('Data loaded!');
+        }
+
+        // Initialize with a few empty entries
+        addCastEntry();
+        addCastEntry();
+        addCastEntry();
+        addCrewEntry();
+        addCrewEntry();
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .credits-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .credits {
+            position: absolute;
+            top: 100vh;
+            width: 100%;
+            text-align: center;
+            animation: none;
+        }
+
+        /* Classic Scroll Style */
+        .credits.classic.playing {
+            animation: scroll-up var(--scroll-speed) linear forwards;
+        }
+
+        @keyframes scroll-up {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(calc(-100vh - 100%));
+            }
+        }
+
+        /* Star Wars Crawl Style */
+        body.starwars .credits-container {
+            perspective: 600px;
+            perspective-origin: 50% 100%;
+        }
+
+        .credits.starwars {
+            top: 100%;
+            width: 100%;
+            left: 10%;
+            transform-origin: 50% 100%;
+            transform: rotateX(25deg);
+        }
+
+        .credits.starwars.playing {
+            animation: crawl var(--scroll-speed) linear forwards;
+        }
+
+        /* Larger fonts for Star Wars to compensate for perspective */
+        .credits.starwars h1 {
+            font-size: 14em;
+        }
+
+        .credits.starwars h2 {
+            font-size: 10em;
+        }
+
+        .credits.starwars .role {
+            font-size: 6em;
+        }
+
+        .credits.starwars .name {
+            font-size: 8em;
+        }
+
+        .credits.starwars .final-message {
+            font-size: 10em;
+        }
+
+        @keyframes crawl {
+            from {
+                top: 0%;
+                transform: rotateX(25deg) translateZ(20vh);
+            }
+
+            to {
+                top: -500%;
+                transform: rotateX(25deg) translateZ(-200vh);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 2em 0 1em 0;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 2em 0 0.5em 0;
+            font-weight: normal;
+        }
+
+        .role {
+            font-size: 1.2em;
+            margin: 0.3em 0;
+            opacity: 0.8;
+        }
+
+        .name {
+            font-size: 1.8em;
+            margin: 0.2em 0 1.5em 0;
+            font-weight: bold;
+        }
+
+        .group {
+            margin: 1em 0;
+        }
+
+        .spacer {
+            height: 3em;
+        }
+
+        .final-message {
+            font-size: 2.5em;
+            margin: 3em 0;
+            font-style: italic;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .controls button:hover {
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="credits-container">
+        <div class="credits" id="credits">
+            <div class="spacer"></div>
+            <div id="creditsContent"></div>
+            <div class="spacer"></div>
+            <div class="spacer"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="restartCredits()">Restart (R)</button>
+        <button onclick="window.close()">Close</button>
+    </div>
+
+    <script>
+        const credits = document.getElementById('credits');
+        const creditsContent = document.getElementById('creditsContent');
+
+        function loadCreditsData() {
+            const dataStr = localStorage.getItem('creditsData');
+            if (!dataStr) {
+                creditsContent.innerHTML = '<h1>No credits data found!</h1><p>Please generate credits from the main page.</p>';
+                return null;
+            }
+            return JSON.parse(dataStr);
+        }
+
+        function generateCreditsHTML(data) {
+            let html = `<h1>${escapeHtml(data.title)}</h1>`;
+
+            // Cast section
+            if (data.cast && data.cast.length > 0) {
+                html += '<h2>Cast</h2>';
+                data.cast.forEach(entry => {
+                    html += `
+                        <div class="group">
+                            <div class="role">${escapeHtml(entry.role)}</div>
+                            <div class="name">${escapeHtml(entry.name)}</div>
+                        </div>
+                    `;
+                });
+                html += '<div class="spacer"></div>';
+            }
+
+            // Crew section
+            if (data.crew && data.crew.length > 0) {
+                html += '<h2>Crew</h2>';
+                data.crew.forEach(entry => {
+                    html += `
+                        <div class="group">
+                            <div class="role">${escapeHtml(entry.role)}</div>
+                            <div class="name">${escapeHtml(entry.name)}</div>
+                        </div>
+                    `;
+                });
+                html += '<div class="spacer"></div>';
+            }
+
+            // Acknowledgements section
+            if (data.acknowledgements && data.acknowledgements.length > 0) {
+                html += '<h2>Special Thanks</h2>';
+                data.acknowledgements.forEach(line => {
+                    html += `<div class="name">${escapeHtml(line)}</div>`;
+                });
+                html += '<div class="spacer"></div>';
+            }
+
+            html += '<div class="final-message">Thank you for watching!</div>';
+
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function applyStyles(data) {
+            const creditStyle = data.style || 'classic';
+
+            // Apply style class to body and credits
+            document.body.classList.add(creditStyle);
+            credits.classList.add(creditStyle);
+
+            // Set colors (starfield overrides background for star wars style)
+            if (creditStyle !== 'starwars') {
+                document.body.style.backgroundColor = data.bgColor || '#000000';
+            }
+            document.body.style.color = data.textColor || '#ffffff';
+            document.body.style.fontFamily = "'Georgia', serif";
+
+            const style = document.createElement('style');
+            style.textContent = `
+                h1, h2 { color: ${data.titleColor || '#800000'}; }
+                .credits.playing { --scroll-speed: ${data.scrollSpeed || 240}s; }
+            `;
+            document.head.appendChild(style);
+
+            // Initialize starfield for Star Wars style
+            if (creditStyle === 'starwars') {
+                initStarfield();
+            }
+        }
+
+        function initStarfield() {
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const stars = [];
+            const numStars = 200;
+
+            // Create stars
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    speed: Math.random() * 0.5 + 0.1
+                });
+            }
+
+            function animateStars() {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'white';
+                stars.forEach(star => {
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Move star down slowly
+                    star.y += star.speed;
+
+                    // Reset star to top when it goes off screen
+                    if (star.y > canvas.height) {
+                        star.y = 0;
+                        star.x = Math.random() * canvas.width;
+                    }
+                });
+
+                requestAnimationFrame(animateStars);
+            }
+
+            animateStars();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        function startCredits() {
+            credits.classList.add('playing');
+        }
+
+        function restartCredits() {
+            credits.classList.remove('playing');
+            void credits.offsetWidth;
+            credits.classList.add('playing');
+        }
+
+        // Restart animation when it ends (for looping)
+        credits.addEventListener('animationend', function () {
+            restartCredits();
+        });
+
+        // Add keyboard shortcut to manually restart (press 'R' key)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'r' || event.key === 'R') {
+                restartCredits();
+            }
+        });
+
+        // Initialize
+        const data = loadCreditsData();
+        if (data) {
+            applyStyles(data);
+            creditsContent.innerHTML = generateCreditsHTML(data);
+
+            // Start credits when page loads
+            window.addEventListener('load', function() {
+                startCredits();
+            });
+        }
+    </script>
+</body>
+</html>

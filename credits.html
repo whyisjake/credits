@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Credits</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+
+        .credits-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .credits {
+            position: absolute;
+            top: 100vh;
+            width: 100%;
+            text-align: center;
+            animation: none;
+        }
+
+        .credits.playing {
+            animation: scroll-up 240s linear forwards;
+        }
+
+        @keyframes scroll-up {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(calc(-100vh - 100%));
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 2em 0 1em 0;
+            font-weight: normal;
+            color: #800000;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 2em 0 0.5em 0;
+            font-weight: normal;
+            color: #800000;
+        }
+
+        .role {
+            font-size: 1.2em;
+            margin: 0.3em 0;
+            color: #ccc;
+        }
+
+        .name {
+            font-size: 1.8em;
+            margin: 0.2em 0 1.5em 0;
+            font-weight: bold;
+        }
+
+        .group {
+            margin: 1em 0;
+        }
+
+        .spacer {
+            height: 3em;
+        }
+
+        .final-message {
+            font-size: 2.5em;
+            margin: 3em 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="credits-container">
+        <div class="credits">
+            <div class="spacer"></div>
+
+            <h1>Romeo and Juliet</h1>
+
+            <h2>Cast</h2>
+
+            <div class="group">
+                <div class="role">Romeo</div>
+                <div class="name">Angelo Escobar</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Juliet</div>
+                <div class="name">Elisia Plise</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Juliet 2</div>
+                <div class="name">Danielle Gutierrez</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Juliet 3</div>
+                <div class="name">Avanee Kulkarni</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Juliet 4</div>
+                <div class="name">Matilda Lee</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Mercutio</div>
+                <div class="name">Rayne Worden</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Benvolio</div>
+                <div class="name">Sammy Swider</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Nurse</div>
+                <div class="name">Phoebe Davis</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Paris</div>
+                <div class="name">Nathan Owen</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Capulet</div>
+                <div class="name">Katerina Tseytlina Bermudez</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lady Capulet</div>
+                <div class="name">Jackie Million</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Montague</div>
+                <div class="name">Anna McSweeney</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lady Montague</div>
+                <div class="name">Soraya Martin</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Friar Laurence</div>
+                <div class="name">Jack Kline</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Prince</div>
+                <div class="name">Brooke Mierzwa</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Tybalt</div>
+                <div class="name">Liam Wilson</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Gregory</div>
+                <div class="name">Madeline Symonds</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Sampson</div>
+                <div class="name">Jack Kline</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Abraham</div>
+                <div class="name">Hailey Spurlock</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Balthazar</div>
+                <div class="name">Evelyn Mitsch</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Apothecary</div>
+                <div class="name">Madeline Symonds</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Servant Girl</div>
+                <div class="name">Abigail Auger</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Paramedic 1</div>
+                <div class="name">Michael Nisenboim</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Paramedic 2</div>
+                <div class="name">Avelina Orlowski</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Peter</div>
+                <div class="name">Ren Lovell</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lighting Head</div>
+                <div class="name">Rowan McAlester</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Romeo Girlfriend</div>
+                <div class="name">Nia Bankov</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Backstage Director</div>
+                <div class="name">Sienna Rowe</div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <h2>Crew</h2>
+
+            <div class="group">
+                <div class="role">Student Director</div>
+                <div class="name">Alex Mitsch</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Sound Design</div>
+                <div class="name">Ren Lovell</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props/Stage Director</div>
+                <div class="name">Madeline Symonds</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Costume Director</div>
+                <div class="name">Avery McNamara</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Marketing Manager</div>
+                <div class="name">Jackie Million</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lighting Director</div>
+                <div class="name">Rowan McAlester</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lighting and Sound</div>
+                <div class="name">Nikola Gargenta</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lighting and Sound</div>
+                <div class="name">Bianca Marques</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lighting and Sound</div>
+                <div class="name">Matthew Slaughter</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Sound</div>
+                <div class="name">Rain Hagen</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Julie Augusts</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Evie Camerlo</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Ava Fausto</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Claire Ferrari</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Conner Hansen</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Gabriel Hinojosa</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Kepha Leung</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Sarah McCormick</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Yumalai Rios</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Paint</div>
+                <div class="name">Oona Smith Seade</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Brick, Props, and Paint</div>
+                <div class="name">Danielle Cook</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Milo Curtain</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Joseph Descalzo</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Kaiden Freeman</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Anderson Lien</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Sullivan McBride</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Jet Miele</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set Crew</div>
+                <div class="name">Hudson Ward</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set and Props Crew</div>
+                <div class="name">Henry Fryer</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set and Props Crew</div>
+                <div class="name">Oliver Ward</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Props and Costumes</div>
+                <div class="name">Avery McNamara</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lights, Sound, Props, and Paint</div>
+                <div class="name">Sophie Liu</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lights, Sound, Props, and Paint</div>
+                <div class="name">Adelaide Quirk</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Lights, Sound, Paint</div>
+                <div class="name">Samantha Wang</div>
+            </div>
+
+            <div class="group">
+                <div class="role">Set and Props</div>
+                <div class="name">Connor Waterman</div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <h2>Backstage & Tech Crew</h2>
+
+            <div class="name">Julie Augusts</div>
+            <div class="name">Evie Camerlo</div>
+            <div class="name">Danielle Cook</div>
+            <div class="name">Milo Curtin</div>
+            <div class="name">Joseph Descalzo</div>
+            <div class="name">Ava Fausto</div>
+            <div class="name">Claire Ferrari</div>
+            <div class="name">Kaiden Freeman</div>
+            <div class="name">Henry Fryer</div>
+            <div class="name">Nikola Gargenta</div>
+            <div class="name">Rain Hagen</div>
+            <div class="name">Conner Hansen</div>
+            <div class="name">Gabriel Hinojosa</div>
+            <div class="name">Kepha Leung</div>
+            <div class="name">Anderson Lien</div>
+            <div class="name">Sophie Liu</div>
+            <div class="name">Bianca Marques</div>
+            <div class="name">Sullivan McBride</div>
+            <div class="name">Sarah McCormick</div>
+            <div class="name">Avery McNamara</div>
+            <div class="name">Jet Miele</div>
+            <div class="name">Adelaide Quirk</div>
+            <div class="name">Yumalai Rios</div>
+            <div class="name">Matthew Slaughter</div>
+            <div class="name">Oona Smith Seade</div>
+            <div class="name">Samantha Wang</div>
+            <div class="name">Hudson Ward</div>
+            <div class="name">Oliver Ward</div>
+            <div class="name">Connor Waterman</div>
+
+            <div class="spacer"></div>
+
+            <h2>Program Print Shop</h2>
+
+            <div class="name">Shirley McClelland</div>
+
+            <div class="spacer"></div>
+
+            <h2>NHS Administration Team</h2>
+
+            <div class="name">Kelly Cooper, Principal</div>
+            <div class="name">Tucker Farrar, VP</div>
+            <div class="name">Tyler Rosecrans, VP</div>
+
+            <div class="spacer"></div>
+
+            <h2>Special Thanks</h2>
+
+            <div class="name">All the DP Families</div>
+            <div class="name">NHS Dance Department</div>
+            <div class="name">Performing Arts in Public Schools</div>
+
+            <div class="spacer"></div>
+
+            <div class="final-message">
+                Thank YOU, the audience for supporting<br>
+                the NHS Dance Department &<br>
+                Performing Arts in Public Schools!
+            </div>
+
+            <div class="spacer"></div>
+            <div class="spacer"></div>
+        </div>
+    </div>
+
+    <script>
+        const credits = document.querySelector('.credits');
+
+        function startCredits() {
+            credits.classList.add('playing');
+        }
+
+        // Start credits when page loads
+        window.addEventListener('load', function() {
+            startCredits();
+        });
+
+        // Restart animation when it ends (for looping)
+        credits.addEventListener('animationend', function () {
+            credits.classList.remove('playing');
+            void credits.offsetWidth;
+            credits.classList.add('playing');
+        });
+
+        // Add keyboard shortcut to manually restart (press 'R' key)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'r' || event.key === 'R') {
+                credits.classList.remove('playing');
+                void credits.offsetWidth;
+                credits.classList.add('playing');
+            }
+        });
+    </script>
+</body>
+
+</html>
