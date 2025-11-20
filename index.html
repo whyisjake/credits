@@ -255,6 +255,21 @@ Performing Arts in Public Schools</textarea>
         let castCount = 0;
         let crewCount = 0;
 
+        const castRoles = [
+            'Romeo', 'Juliet', 'Mercutio', 'Benvolio', 'Nurse', 'Tybalt',
+            'Friar Laurence', 'Lord Capulet', 'Lady Capulet', 'Paris',
+            'Prince', 'Montague', 'Lady Montague', 'Balthasar', 'Sampson',
+            'Gregory', 'Peter', 'Apothecary', 'Chorus'
+        ];
+
+        const crewPositions = [
+            'Director', 'Producer', 'Stage Manager', 'Assistant Director',
+            'Lighting Designer', 'Sound Designer', 'Costume Designer', 'Set Designer',
+            'Props Master', 'Technical Director', 'Choreographer', 'Music Director',
+            'Makeup Artist', 'Hair Stylist', 'Production Assistant', 'Dramaturg',
+            'Fight Choreographer', 'Vocal Coach', 'Publicity Manager'
+        ];
+
         // Color picker updates
         document.getElementById('bgColor').addEventListener('input', (e) => {
             document.getElementById('bgColorText').textContent = e.target.value;
@@ -268,12 +283,15 @@ Performing Arts in Public Schools</textarea>
 
         function addCastEntry(role = '', name = '') {
             const container = document.getElementById('castEntries');
-            const id = `cast-${castCount++}`;
+            const id = `cast-${castCount}`;
+            const rolePlaceholder = castRoles[castCount % castRoles.length];
+            castCount++;
+
             const entry = document.createElement('div');
             entry.className = 'entry-item';
             entry.id = id;
             entry.innerHTML = `
-                <input type="text" placeholder="Role (e.g., Romeo)" value="${role}" data-type="role">
+                <input type="text" placeholder="${rolePlaceholder}" value="${role}" data-type="role">
                 <input type="text" placeholder="Actor Name" value="${name}" data-type="name">
                 <button onclick="removeEntry('${id}')" class="btn-danger">Remove</button>
             `;
@@ -282,13 +300,16 @@ Performing Arts in Public Schools</textarea>
 
         function addCrewEntry(role = '', name = '') {
             const container = document.getElementById('crewEntries');
-            const id = `crew-${crewCount++}`;
+            const id = `crew-${crewCount}`;
+            const positionPlaceholder = crewPositions[crewCount % crewPositions.length];
+            crewCount++;
+
             const entry = document.createElement('div');
             entry.className = 'entry-item';
             entry.id = id;
             entry.innerHTML = `
-                <input type="text" placeholder="Position (e.g., Director)" value="${role}" data-type="role">
-                <input type="text" placeholder="Name" value="${name}" data-type="name">
+                <input type="text" placeholder="${positionPlaceholder}" value="${role}" data-type="role">
+                <input type="text" placeholder="Crew Member Name" value="${name}" data-type="name">
                 <button onclick="removeEntry('${id}')" class="btn-danger">Remove</button>
             `;
             container.appendChild(entry);
